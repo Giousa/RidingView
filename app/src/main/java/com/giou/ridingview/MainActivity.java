@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isStart = false;
     private int count = 0;
     private int mSize;
+    private int mBikeHeight = 50;
 
 
     @Override
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         public void onTime(Timer timer) {
             count++;
             Log.d(TAG,"count="+count);
-            if(count > mSize){
+            if(count > 32){
                 count = 0;
             }
             perfomAnim(count);
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         Animation.ABSOLUTE, 0,
                         Animation.ABSOLUTE, mAllPoints.get(current).x,
                         Animation.ABSOLUTE, 0,
-                        Animation.ABSOLUTE, mAllPoints.get(current).y);
+                        Animation.ABSOLUTE, mAllPoints.get(current).y-mBikeHeight);
                 animation.setFillAfter(true);
                 animation.setDuration(1000);
                 mBikeView.startAnimation(animation);
@@ -111,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 TranslateAnimation animation = new TranslateAnimation(
                         Animation.ABSOLUTE, mAllPoints.get(current-1).x,
                         Animation.ABSOLUTE, mAllPoints.get(current).x,
-                        Animation.ABSOLUTE, mAllPoints.get(current-1).y,
-                        Animation.ABSOLUTE, mAllPoints.get(current).y);
+                        Animation.ABSOLUTE, mAllPoints.get(current-1).y-mBikeHeight,
+                        Animation.ABSOLUTE, mAllPoints.get(current).y-mBikeHeight);
                 animation.setFillAfter(true);
                 animation.setDuration(1000);
                 mBikeView.startAnimation(animation);
