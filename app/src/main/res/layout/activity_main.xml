@@ -9,11 +9,30 @@
     tools:context=".MainActivity">
 
 
-    <com.giou.ridingview.view.MiniMapView
+    <RelativeLayout
         android:background="#77ff0000"
-        android:id="@+id/mini_map_view"
         android:layout_width="match_parent"
-        android:layout_height="100px"/>
+        android:layout_height="150px">
+
+        <com.giou.ridingview.view.MiniMapView
+            android:layout_alignParentBottom="true"
+            android:background="#770000ff"
+            android:id="@+id/mini_map_view"
+            android:layout_width="match_parent"
+            android:layout_height="100px"/>
+
+        <ImageView
+            android:id="@+id/iv_bike"
+            android:layout_width="50px"
+            android:layout_height="50px"/>
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btn_start"
+        android:text="开始"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
 

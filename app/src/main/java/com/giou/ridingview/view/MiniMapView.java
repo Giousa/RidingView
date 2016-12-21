@@ -76,6 +76,9 @@ public class MiniMapView extends View {
         canvas.restore();
     }
 
+    public List<Point> getAllPoints() {
+        return allPoints;
+    }
 
     public void loadObjFile(String fileName) {
 
