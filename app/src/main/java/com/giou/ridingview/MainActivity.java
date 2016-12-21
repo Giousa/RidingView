@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -24,15 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mStart;
     private boolean isStart = false;
     private int count = 0;
-
-    private Timer mTimer = new Timer(600, new Timer.OnTimer() {
-        @Override
-        public void onTime(Timer timer) {
-            count++;
-            Log.d(TAG,"count="+count);
-
-        }
-    });
+    private int mSize;
 
 
     @Override
@@ -56,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         mAllPoints = mMiniMapView.getAllPoints();
+        if(mAllPoints != null){
+            Log.d(TAG,"allPoints="+ mAllPoints.size());
+            mSize = mAllPoints.size()-1;
+        }
     }
 
     private void initListener() {
@@ -78,5 +76,46 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    private Timer mTimer = new Timer(600, new Timer.OnTimer() {
+        @Override
+        public void onTime(Timer timer) {
+            count++;
+            Log.d(TAG,"count="+count);
+            perfomAnim(count);
+        }
+    });
+
+    private void perfomAnim(int count){
+        if(mAllPoints != null){
+
+            float progressFloat = count / 100.0f;
+            int current = (int) (mSize * progressFloat);
+
+            if(current > mSize){
+                return;
+            }
+            if(current == 0){
+                TranslateAnimation animation = new TranslateAnimation(
+                        Animation.ABSOLUTE, 0,
+                        Animation.ABSOLUTE, mAllPoints.get(current).x,
+                        Animation.ABSOLUTE, 0,
+                        Animation.ABSOLUTE, mAllPoints.get(current).y);
+                animation.setFillAfter(true);
+                animation.setDuration(1000);
+                mBikeView.startAnimation(animation);
+            }else{
+                TranslateAnimation animation = new TranslateAnimation(
+                        Animation.ABSOLUTE, mAllPoints.get(current-1).x,
+                        Animation.ABSOLUTE, mAllPoints.get(current).x,
+                        Animation.ABSOLUTE, mAllPoints.get(current-1).y,
+                        Animation.ABSOLUTE, mAllPoints.get(current).y);
+                animation.setFillAfter(true);
+                animation.setDuration(1000);
+                mBikeView.startAnimation(animation);
+            }
+
+        }
+    }
 
 }
