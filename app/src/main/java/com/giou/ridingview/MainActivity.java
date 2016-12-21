@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         public void onTime(Timer timer) {
             count++;
             Log.d(TAG,"count="+count);
+            if(count > mSize){
+                count = 0;
+            }
             perfomAnim(count);
         }
     });
